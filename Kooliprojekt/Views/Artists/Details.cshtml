@@ -1,0 +1,61 @@
+﻿@model ArtistDetailModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom:20px;
+    }
+</style>
+
+<h2>Details</h2>
+
+<div>
+    <h4>Artist</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtistId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ArtistId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+    <h3>Songs</h3>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Tempo</th>
+        </tr>
+        @foreach(var item in Model.Songs)
+         {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Tempo</td>
+            </tr>
+         }
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ArtistId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

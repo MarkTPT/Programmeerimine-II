@@ -1,0 +1,58 @@
+﻿@model List<HomeListModel>
+@{
+    ViewData["Title"] = "Home Page";
+
+    HomeListModel today = new HomeListModel();
+
+    List<HomeListModel> upcoming = new List<HomeListModel>();
+    List<HomeListModel> previous = new List<HomeListModel>();
+
+    DateTime dateNow = DateTime.Now;
+
+    foreach (var schedule in Model)
+    {
+        if (schedule.Date.Date == dateNow.Date)
+        {
+            today = schedule;
+        }
+        if (schedule.Date > dateNow)
+        {
+            upcoming.Add(schedule);
+        }
+        if (schedule.Date < dateNow)
+        {
+            previous.Add(schedule);
+        }
+    }
+}
+
+<div>
+    <h2>Today's schedule</h2>
+    <p>@(today.ScheduleId == 0 ? "" : today.Date.ToLongDateString()) | <a asp-controller="Schedules" asp-action="Details" asp-route-id="@today.ScheduleId">View schedule details</a></p>
+    @*<p>@today.Date.ToLongDateString() | <a asp-controller="Schedules" asp-action="Details" asp-route-id="@today.ScheduleId">View schedule details</a></p>*@
+    <ul>
+        @foreach (var song in today.Songs)
+        {
+            <li>Title: @song.Song.Title | Time: @song.Time</li>
+        }
+    </ul>
+
+    <h2>Upcoming Schedules</h2>
+    <ul>
+        @foreach (var date in upcoming)
+        {
+            <li>@date.Date.ToLongDateString() | <a asp-controller="Schedules" asp-action="Details" asp-route-id="@date.ScheduleId">View schedule details</a></li>
+        }
+    </ul>
+
+    <h2>Previous Schedules</h2>
+    <ul>
+        @foreach (var date in previous)
+        {
+            <li>@date.Date.ToLongDateString() | <a asp-controller="Schedules" asp-action="Details" asp-route-id="@date.ScheduleId">View schedule details</a></li>
+        }
+    </ul>
+
+</div>
+
+

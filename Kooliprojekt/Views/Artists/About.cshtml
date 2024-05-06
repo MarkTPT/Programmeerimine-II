@@ -1,0 +1,59 @@
+﻿@model ArtistAboutModel
+@{
+    string description;
+    int id;
+    string name;
+}
+
+<style>
+    img{
+        width:100%;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        @*Display all files with description*@
+        @foreach (var file in Model.Files)
+        {
+            var splittedUrl = file.Split("/");
+            id = int.Parse(splittedUrl[splittedUrl.Length - 1].Split("_")[0]);
+            description = Model.Artists.Where(artist => artist.ArtistId == id).Select(a => a.Description).FirstOrDefault();
+            name = Model.Artists.Where(artist => artist.ArtistId == id).Select(a => a.Name).FirstOrDefault();
+
+
+            <div class="card col-md-3" style="margin: 5px; padding: 15px; min-height: 410px; border: 1px solid rgba(0,0,0,.125); border-radius: 0.25rem;">
+                <img class="card-img-top" src="@file" style="height:210px;"/>
+                <div class="card-body">
+                    <p class="card-title" style="font-weight:bold; text-align:center; font-size:16px; ">@name</p>
+                    <p class="card-text" style="word-wrap: break-word; min-height: 150px;">@description</p>
+                </div>
+
+                <form action="/Artists/About" method="post">
+                    <input type="hidden" name="container" value="artists" />
+                    <input type="hidden" name="fileName" value="@file.Substring(15)" />
+                    <input type="submit" value="Delete" class="btn btn-primary" />
+                </form>
+            </div>
+
+        }
+    </div>
+    
+
+    @*Display all files*@
+    @*@foreach (var file in ViewBag.files)
+        {
+
+        <div class="col-md-3" style="margin: 5px;">
+            <img src="@file" style="width:250px;height:220px;" />
+            <form action="/Artists/About" method="post">
+                <input type="hidden" name="container" value="artists" />
+                <input type="hidden" name="fileName" value="@file.Substring(15)" />
+                <input type="submit" value="Delete" />
+            </form>
+        </div>
+
+        }*@
+
+</div>

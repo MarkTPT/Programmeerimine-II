@@ -1,0 +1,61 @@
+﻿@model SongCreationModel
+@using KooliProjekt.Models
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Song</h4>
+<hr />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-3">
+                            <label asp-for="Tempo" class="control-label"></label>
+                            <select asp-for="Tempo" class="form-control" asp-items="@Model.Tempos"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ArtistId" class="control-label">Artist</label>
+                        <select asp-for="ArtistId" class="form-control" asp-items="@Model.Artists"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Storage.Kood" class="control-label"></label>
+                        <input asp-for="Storage.Kood" class="form-control" value="@CodeGenerator.RandomCode()" readonly="readonly" />
+                        @*<input asp-for="Storage.Kood" class="form-control" />*@
+                        <span asp-validation-for="Storage.Kood" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+   
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

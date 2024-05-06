@@ -1,0 +1,52 @@
+﻿@model ScheduleDetailModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    table, td, th {
+        border: 1px solid black;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+</style>
+
+<h2>Details</h2>
+
+<div>
+    <h4>Schedule</h4>
+    <hr />
+    <div>
+        <h5>Legend:</h5>
+        <div class="container">
+            <p>Tempo 1: 00:00 - 06:00, 22:00 - 00:00</p>
+            <p>Tempo 2: 09:00 - 22:00</p>
+            <p>Tempo 3: 06:00 - 11:00</p>
+        </div>
+    </div>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Tempo</th>
+            <th>Time</th>
+        </tr>
+        @foreach (var item in Model.Songs)
+         {
+            <tr>
+                <td>@item.Song.Title</td>
+                <td>@item.Song.Tempo</td>
+                <td>@item.Time.ToString("HH:mm MM/dd")</td>
+            </tr>
+         }
+    </table>
+    
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ScheduleId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

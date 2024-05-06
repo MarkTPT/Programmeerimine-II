@@ -1,0 +1,74 @@
+﻿@*@model IEnumerable<KooliProjekt.Data.Artist>*@
+@model PagedResult<ArtistSongListModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<div style="display: flex; justify-content:space-between;">
+    <div>
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+
+    </div>
+    <div style="display:flex;">
+        <div style="margin-right:20px; border-right:3px solid; padding-right:10px;">
+            <h3>Failide lisamine 1 (multiple)</h3>
+            <p>for testing</p>
+            <p>list all files: /Artists/AboutTest</p>
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="formFiles" multiple="multiple" />
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+        <div>
+            <h3>Failide lisamine 2 (for a specific Artist)</h3>
+            <form method="post" enctype="multipart/form-data">
+                <input type="file" name="formFiles" />
+                <label>Select artist: </label>
+                <select name="artistId" asp-items="Model.selectList"></select>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Song</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <ul>
+                        @foreach (var title in item.SongTitles)
+                        {
+                            <li>Title: @title</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ArtistId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ArtistId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ArtistId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<vc:pager result="Model" view-name="Default" />
+

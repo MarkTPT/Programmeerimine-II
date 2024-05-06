@@ -1,0 +1,39 @@
+﻿@*@model IEnumerable<KooliProjekt.Data.Schedule>*@
+@model PagedResult<ScheduleListModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Time
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Results)
+        {
+            <tr>
+                <td>
+                    @item.Date.ToLongDateString()
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ScheduleId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ScheduleId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ScheduleId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<vc:pager result="Model" view-name="Default" />

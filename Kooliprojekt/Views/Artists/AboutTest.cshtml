@@ -1,0 +1,45 @@
+﻿@model ArtistAboutModel
+@{
+}
+
+<style>
+    img {
+        width: 100%;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        @*Display all files with description*@
+        @foreach (var file in Model.Files)
+        {
+
+            <div class="card col-md-3" style="margin: 5px; padding: 15px; min-height: 410px; border: 1px solid rgba(0,0,0,.125); border-radius: 0.25rem;">
+                <img class="card-img-top" src="@file" style="height:210px;" />
+                <div class="card-body">
+                    <p class="card-title" style="font-weight:bold; text-align:center; font-size:16px; ">Name</p>
+                    <p class="card-text" style="word-wrap: break-word; min-height: 150px;">Description...</p>
+                </div>
+            </div>
+
+        }
+    </div>
+
+
+    @*Display all files*@
+    @*@foreach (var file in ViewBag.files)
+        {
+
+        <div class="col-md-3" style="margin: 5px;">
+            <img src="@file" style="width:250px;height:220px;" />
+            <form action="/Artists/About" method="post">
+                <input type="hidden" name="container" value="artists" />
+                <input type="hidden" name="fileName" value="@file.Substring(15)" />
+                <input type="submit" value="Delete" />
+            </form>
+        </div>
+
+        }*@
+
+</div>
